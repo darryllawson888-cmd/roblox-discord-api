@@ -29,4 +29,5 @@ app.get("/getData/:userId", (req, res) => {
     res.json(playerData[userId] || { error: "No data found" });
 });
 
-app.listen(3000, () => console.log("API running on port 3000"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`API running on port ${PORT}`));
