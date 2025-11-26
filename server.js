@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 let playerData = {};
 
 app.post("/updateData", (req, res) => {
-  const { userId, purchaseId, date, playerName, passName, passId, reset } = req.body;
+  const { userId, date, playerName, passName, passId, reset } = req.body;
 
   if (reset) {
     playerData[userId] = [];
@@ -18,13 +18,13 @@ app.post("/updateData", (req, res) => {
     playerData[userId] = [];
   }
 
-  // Check uniqueness by purchaseId
+  // Check uniqueness by passId
   const alreadyExists = playerData[userId].some(
-    (p) => p.purchaseId === purchaseId
+    (p) => p.passId === passId
   );
 
   if (!alreadyExists) {
-    playerData[userId].push({ purchaseId, date, playerName, passName, passId });
+    playerData[userId].push({ date, playerName, passName, passId });
     return res.json({ status: "success", message: "New purchase added" });
   } else {
     return res.json({ status: "duplicate", message: "Purchase already exists" });
